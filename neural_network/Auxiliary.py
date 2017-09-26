@@ -118,38 +118,3 @@ def L2(yhat, y):
     loss = np.sum(np.dot(yhat - y, yhat - y ))
 
     return loss
-
-yhat = np.array([.9, 0.2, 0.1, .4, .9])
-y = np.array([1, 0, 0, 1, 1])
-print("L1 = " + str(L1(yhat,y)))
-
-yhat = np.array([.9, 0.2, 0.1, .4, .9])
-y = np.array([1, 0, 0, 1, 1])
-print("L2 = " + str(L2(yhat,y)))
-
-x = np.array([
-    [9, 2, 5, 0, 0],
-    [7, 5, 0, 0 ,0]])
-print("softmax(x) = " + str(softmax(x)))
-
-x = np.array([
-    [0, 3, 4],
-    [1, 6, 4]])
-print("normalizeRows(x) = " + str(normalizeRows(x)))
-
-image = np.array([[[ 0.67826139,  0.29380381],
-        [ 0.90714982,  0.52835647],
-        [ 0.4215251 ,  0.45017551]],
-
-       [[ 0.92814219,  0.96677647],
-        [ 0.85304703,  0.52351845],
-        [ 0.19981397,  0.27417313]],
-
-       [[ 0.60659855,  0.00533165],
-        [ 0.10820313,  0.49978937],
-        [ 0.34144279,  0.94630077]]])
-
-print ("image2vector(image) = " + str(image2vector(image)))
-
-x = np.array([1, 2, 3])
-print ("sigmoid_derivative(x) = " + str(sigmoid_derivative(x)))

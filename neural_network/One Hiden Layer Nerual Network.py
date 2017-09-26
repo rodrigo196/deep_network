@@ -8,6 +8,8 @@ Created on Mon Sep 25 09:50:06 2017
 # Package imports
 import numpy as np
 from Auxiliary import sigmoid
+from Auxiliary import normalizeRows
+from lr_utils import load_dataset
 
 def layer_sizes(X, Y):
     """
@@ -40,9 +42,7 @@ def initialize_parameters(n_x, n_h, n_y):
                     W2 -- weight matrix of shape (n_y, n_h)
                     b2 -- bias vector of shape (n_y, 1)
     """
-    
-    np.random.seed(2) # we set up a seed so that your output matches ours although the initialization is random.
-    
+        
     W1 = np.random.randn(n_h, n_x) * 0.01
     b1 = np.zeros((n_h, 1))
     W2 = np.random.randn(n_y, n_h) * 0.01
@@ -150,7 +150,7 @@ def backward_propagation(parameters, cache, X, Y):
     
     return grads
 
-def update_parameters(parameters, grads, learning_rate = 1.2):
+def update_parameters(parameters, grads, learning_rate = 0.5):
     """
     Updates parameters using the gradient descent update rule given above
     
@@ -195,9 +195,7 @@ def nn_model(X, Y, n_h, num_iterations = 10000, print_cost=False):
     
     Returns:
     parameters -- parameters learnt by the model. They can then be used to predict.
-    """
-    
-    np.random.seed(3)
+    """    
     n_x = layer_sizes(X, Y)[0]
     n_y = layer_sizes(X, Y)[2]
     
@@ -247,6 +245,29 @@ def predict(parameters, X):
     predictions = A2 > 0.5
     
     return predictions
+
+train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = load_dataset()
+
+train_set_x_flatten = train_set_x_orig.reshape(train_set_x_orig.shape[0], -1).T
+test_set_x_flatten = test_set_x_orig.reshape(test_set_x_orig.shape[0], -1).T
+
+train_set_x = train_set_x_flatten/255.
+test_set_x = test_set_x_flatten/255.
+
+X = normalizeRows(train_set_x)
+Y = train_set_y
+
+X_test = normalizeRows(test_set_x)
+
+print("X shape: " + str(X.shape) + " Y shape " + str(Y.shape))
+
+parameters = nn_model(X, Y, 10, 10000, True)
+
+predictions = predict(parameters, X)
+print ('Accuracy of train set: %d' % float((np.dot(Y,predictions.T) + np.dot(1-Y,1-predictions.T))/float(Y.size)*100) + '%')
+
+predictions = predict(parameters, X_test)
+print ('Accuracy of test set: %d' % float((np.dot(test_set_y,predictions.T) + np.dot(1-test_set_y,1-predictions.T))/float(test_set_y.size)*100) + '%')
 
 
 
