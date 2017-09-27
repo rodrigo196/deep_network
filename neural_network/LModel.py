@@ -6,7 +6,7 @@ Created on Wed Sep 27 12:17:02 2017
 """
 import numpy as np
 import h5py
-from NerualNetworkCore import initialize_parameters_deep, L_model_forward, compute_cost, L_model_backward, update_parameters
+from NeuralNetworkCore import initialize_parameters_deep, L_model_forward, compute_cost, L_model_backward, update_parameters
 
 def L_layer_model(X, Y, layers_dims, learning_rate = 0.0075, num_iterations = 3000, print_cost=False):#lr was 0.009
     """
