@@ -261,7 +261,7 @@ X_test = normalizeRows(test_set_x)
 
 print("X shape: " + str(X.shape) + " Y shape " + str(Y.shape))
 
-parameters = nn_model(X, Y, 10, 10000, True)
+parameters = nn_model(X, Y, 1, 5000, True)
 
 predictions = predict(parameters, X)
 print ('Accuracy of train set: %d' % float((np.dot(Y,predictions.T) + np.dot(1-Y,1-predictions.T))/float(Y.size)*100) + '%')
