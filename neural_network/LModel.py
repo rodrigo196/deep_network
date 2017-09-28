@@ -79,6 +79,6 @@ train_x = train_x_flatten/255.
 test_x = test_x_flatten/255.
 
 
-layers_dims = [12288, 20, 20, 20, 10, 7, 7, 5, 1]
+layers_dims = [12288, 7, 7, 5, 1]
 
 parameters = L_layer_model(train_x, train_y, layers_dims, num_iterations = 10000, print_cost = True)

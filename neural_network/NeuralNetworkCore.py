@@ -51,12 +51,11 @@ def initialize_parameters_deep(layer_dims):
                     bl -- bias vector of shape (layer_dims[l], 1)
     """
     
-    np.random.seed(3)
     parameters = {}
     L = len(layer_dims)            # number of layers in the network
 
     for l in range(1, L):
-        parameters['W' + str(l)] = np.random.randn(layer_dims[l], layer_dims[l - 1]) * 0.01
+        parameters['W' + str(l)] = np.random.randn(layer_dims[l], layer_dims[l - 1])  / np.sqrt(layer_dims[l-1])
         parameters['b' + str(l)] = np.zeros((layer_dims[l], 1))
         
         assert(parameters['W' + str(l)].shape == (layer_dims[l], layer_dims[l-1]))
@@ -104,17 +103,13 @@ def linear_activation_forward(A_prev, W, b, activation):
     
     if activation == "sigmoid":
         # Inputs: "A_prev, W, b". Outputs: "A, activation_cache".
-        ### START CODE HERE ### (≈ 2 lines of code)
         Z, linear_cache = linear_forward(A_prev, W, b)
         A, activation_cache = sigmoid(Z)
-        ### END CODE HERE ###
     
     elif activation == "relu":
         # Inputs: "A_prev, W, b". Outputs: "A, activation_cache".
-        ### START CODE HERE ### (≈ 2 lines of code)
         Z, linear_cache = linear_forward(A_prev, W, b)
         A, activation_cache = relu(Z)
-        ### END CODE HERE ###
     
     assert (A.shape == (W.shape[0], A_prev.shape[1]))
     cache = (linear_cache, activation_cache)
@@ -169,7 +164,7 @@ def compute_cost(AL, Y):
     m = Y.shape[1]
 
     # Compute loss from aL and y.
-    cost = - np.sum(np.multiply(np.log(AL),Y) + np.multiply((1 - Y), np.log(1 - AL))) / m
+    cost = (1./m) * (-np.dot(Y,np.log(AL).T) - np.dot(1-Y, np.log(1-AL).T))
     
     cost = np.squeeze(cost)      # To make sure your cost's shape is what we expect (e.g. this turns [[17]] into 17).
     assert(cost.shape == ())
