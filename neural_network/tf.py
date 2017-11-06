@@ -47,9 +47,9 @@ def initialize_parameters():
     ### START CODE HERE ### (approx. 6 lines of code)
     W1 = tf.get_variable("W1", [25,12288], initializer = tf.contrib.layers.xavier_initializer())
     b1 = tf.get_variable("b1", [25,1], initializer = tf.zeros_initializer())
-    W2 = tf.get_variable("W2", [12,25], initializer = tf.contrib.layers.xavier_initializer())
-    b2 = tf.get_variable("b2", [12,1], initializer = tf.zeros_initializer())
-    W3 = tf.get_variable("W3", [2,12], initializer = tf.contrib.layers.xavier_initializer())
+    W2 = tf.get_variable("W2", [120,25], initializer = tf.contrib.layers.xavier_initializer())
+    b2 = tf.get_variable("b2", [120,1], initializer = tf.zeros_initializer())
+    W3 = tf.get_variable("W3", [2,120], initializer = tf.contrib.layers.xavier_initializer())
     b3 = tf.get_variable("b3", [2,1], initializer = tf.zeros_initializer())
     ### END CODE HERE ###
 
@@ -213,7 +213,7 @@ def convert_to_one_hot(Y, C):
     return Y
 
 def model(X_train, Y_train, X_test, Y_test, learning_rate = 0.0001,
-          num_epochs = 1500, minibatch_size = 32, print_cost = True):
+          num_epochs = 1500, minibatch_size = 64, print_cost = True):
     """
     Implements a three-layer tensorflow neural network: LINEAR->RELU->LINEAR->RELU->LINEAR->SOFTMAX.
 
